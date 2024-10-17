@@ -282,26 +282,13 @@ if __name__ == '__main__':
                     ob = AnchoredHScaleBar(size=500, label="500 $\mu m$", loc=1, frameon=False,
                            pad=0.6,sep=4, linekw=dict(color="crimson"),) 
                     axs[i,j].add_artist(ob)
-                    
-        
-    # fig.suptitle('cell number ratio (w.r.t ROI class) (Red: Group 1, Blue: Group 2)', fontsize=16, y=0.92)
-    # pyplot.tight_layout()
-    pyplot.subplots_adjust(wspace=0, hspace=0)
-    # pyplot.show()
     
+    pyplot.subplots_adjust(wspace=0, hspace=0)
     pyplot.savefig(os.path.join(savepath_plot, 'group1_spread.png'))
     pyplot.savefig(os.path.join(savepath_plot, 'group1_spread.eps'), format='eps')
     pyplot.savefig(os.path.join(savepath_plot, 'group1_spread.svg'), format='svg')
     
-    # pyplot.savefig(os.path.join(savepath, 'ROI_cellnumber_classratio.png'))
-
-    
-
-
-
     nsubj = len(group2)
-    # fig = pyplot.figure(figsize=(8, 2*nsubj))
-    # ax_list = [fig.add_subplot(nsubj,3,i+1) for i in range(nsubj)]
     fig, axs = pyplot.subplots(ncols=3, nrows=nsubj, figsize=(8, 2*nsubj))
     
     width = 2000
@@ -398,7 +385,6 @@ if __name__ == '__main__':
             pdist = pdist[np.triu_indices(pdist.shape[0],k=1)]
             axs[i,j].text(-950, -910, 'mean = {:.2f}'.format(np.mean(pdist)), fontsize=8)
             axs[i,j].text(-950, -790, 'max = {:.2f}'.format(np.max(pdist)), fontsize=8)
-    #         axs[i,j].text(300, -780, 'det = {:.2f}'.format(area_ratio[j]), fontsize=8)
             
             if i == 0:
                 if j == len(excit_class[:-1])-1:
@@ -407,53 +393,26 @@ if __name__ == '__main__':
                     axs[i,j].add_artist(ob)
                     
             
-        
-    # fig.suptitle('cell number ratio (w.r.t ROI class) (Red: Group 1, Blue: Group 2)', fontsize=16, y=0.92)
-    # pyplot.tight_layout()
+
     pyplot.subplots_adjust(wspace=0, hspace=0)
-    # pyplot.show()
-    
     pyplot.savefig(os.path.join(savepath_plot, 'group2_spread.png'))
     pyplot.savefig(os.path.join(savepath_plot, 'group2_spread.eps'), format='eps')
     pyplot.savefig(os.path.join(savepath_plot, 'group2_spread.svg'), format='svg')
     
-    
-    # pyplot.savefig(os.path.join(savepath, 'ROI_cellnumber_classratio.png'))
-
-
     full_area_ratio = group1_area_ratio + group2_area_ratio
     full_area_ratio = np.vstack(full_area_ratio)
 
-
     t_statistic, p_value = stats.ttest_1samp(full_area_ratio[:,0], 1)
-    
-    # Since you want to test if the mean is greater than 1, we take the one-tailed p-value
     p_value_one_tailed = p_value / 2
     
     # Output results
     print(f"T-statistic: {t_statistic}")
     print(f"P-value (one-tailed): {p_value_one_tailed}")
-    
-    # Check if the mean is significantly greater than 1
-    alpha = 0.05  # Significance level
-    if p_value_one_tailed < alpha and t_statistic > 0:
-        print("Reject the null hypothesis: the mean ratio in Layer II/III is significantly greater than 1.")
-    else:
-        print("Fail to reject the null hypothesis: the mean is not significantly greater than 1.")
-
     
     t_statistic, p_value = stats.ttest_1samp(full_area_ratio[:,2], 1)
-    
-    # Since you want to test if the mean is greater than 1, we take the one-tailed p-value
     p_value_one_tailed = p_value / 2
     
     # Output results
     print(f"T-statistic: {t_statistic}")
     print(f"P-value (one-tailed): {p_value_one_tailed}")
     
-    # Check if the mean is significantly greater than 1
-    alpha = 0.05  # Significance level
-    if p_value_one_tailed < alpha and t_statistic > 0:
-        print("Reject the null hypothesis: the mean ratio in Layer V is significantly greater than 1.")
-    else:
-        print("Fail to reject the null hypothesis: the mean is not significantly greater than 1.")
