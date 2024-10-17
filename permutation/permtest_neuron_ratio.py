@@ -325,7 +325,7 @@ if __name__ == '__main__':
     for (idx, layers) in enumerate(class_list):
     
         available_ID, _, _, _ = load_groupROIlist_coord(IDlist, merge_df, ROIlist=layers)
-        resample_list, rlen = generate_resample(available_ID, group1, group2, nperm=1000)
+        resample_list, rlen = generate_resample(available_ID, group1, group2, nperm=10000)
     
         T_ratio = np.zeros((rlen, 1))
         subj_ratio = []
