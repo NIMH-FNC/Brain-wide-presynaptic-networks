@@ -49,7 +49,7 @@ if __name__ == '__main__':
     thal_list = ['sensory', 'PO', 'VPM', 'anterior']
 
     available_ID = group1 + group2
-    resample_list, rlen = generate_resample(available_ID, group1, group2, nperm=200)
+    resample_list, rlen = generate_resample(available_ID, group1, group2, nperm=10000)
 
     metric_list = []
     for (idx, layer) in enumerate(thal_list):
